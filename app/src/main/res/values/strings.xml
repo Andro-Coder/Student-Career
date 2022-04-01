@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">StudentCareerApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="student">Student</string>
+    <string name="staff">Staff</string>
+    <string name="logo1">Logo1</string>
+    <string name="enter_a_password">Enter a password</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="my_account">My Account</string>
+    <string name="login1">LOGIN</string>
+    <string name="login2">LOGIN</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account_signup">Don\'t have an account? Signup</string>
+    <string name="my_account_1">My Account</string>
+    <string name="login_12">Login</string>
+    <string name="register">REGISTER</string>
+
+
+    <string-array name="SelectSemester">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+    </string-array>
+
 </resources>
