@@ -26,7 +26,7 @@ public class SProfileFragment extends Fragment {
     FirebaseFirestore firebaseFirestore;
     String userID;
 
-    TextView name,email,dept,sem,div,id;
+    TextView name,email,dept,sem,div,id,titleName;
 
     public SProfileFragment() {
         // Required empty public constructor
@@ -44,6 +44,7 @@ public class SProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_s_profile, container, false);
 
+        titleName = (TextView) view.findViewById(R.id.name1FPTV);
         name = (TextView) view.findViewById(R.id.nameSPTV);
         email = (TextView) view.findViewById(R.id.emailSPTV);
         dept = (TextView) view.findViewById(R.id.deptSPTV);
@@ -68,6 +69,7 @@ public class SProfileFragment extends Fragment {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
+                titleName.setText(value.getString("Name"));
                 name.setText(value.getString("Name"));
                 email.setText(value.getString("Email"));
                 dept.setText(value.getString("Department"));

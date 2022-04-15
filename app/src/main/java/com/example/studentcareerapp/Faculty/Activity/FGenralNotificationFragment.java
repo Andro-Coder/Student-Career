@@ -3,8 +3,11 @@ package com.example.studentcareerapp.Faculty.Activity;
 import static com.google.android.gms.tasks.Tasks.await;
 
 import android.app.Dialog;
+import android.nfc.Tag;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,22 +19,60 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.studentcareerapp.ArraylistHelper.DepartmentHelper;
+import com.example.studentcareerapp.ArraylistHelper.SemesterHelper;
+import com.example.studentcareerapp.Domains.DepartmentDomain;
+import com.example.studentcareerapp.Domains.SemesterDomain;
+import com.example.studentcareerapp.Domains.StudentNotificationDomain;
 import com.example.studentcareerapp.Faculty.Adapter.SelectedDetailsAdapter;
 import com.example.studentcareerapp.R;
+import com.example.studentcareerapp.Student.Adapter.NotificationAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
 
 public class FGenralNotificationFragment extends Fragment {
 
 
     private ImageView selectDept,selectSem;
     private RecyclerView deptRecyclerView,semRecyclerView;
+    private EditText messageTitle,messageDescription;
+    private Button sendBtn;
 
-    ArrayList<String> selectedDepartment = new ArrayList<String>();
-    ArrayList<String> selectedSemester = new ArrayList<String>();
+
+    ArrayList<DepartmentDomain> selectedDepartment = new ArrayList<DepartmentDomain>();
+    ArrayList<SemesterDomain> selectedSemester = new ArrayList<SemesterDomain>();
+
+    private DepartmentHelper departmentHelper;
+    private SemesterHelper semesterHelper;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+    DocumentReference documentReference;
+    String userID,email;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -69,9 +110,22 @@ public class FGenralNotificationFragment extends Fragment {
 
         selectDept = view.findViewById(R.id.deptSelectImg);
         selectSem = view.findViewById(R.id.semSelectImg);
+        messageTitle = view.findViewById(R.id.titleTXT);
+        messageDescription = view.findViewById(R.id.msgTXT);
+        sendBtn = view.findViewById(R.id.sendBtn);
 
         deptRecyclerView = view.findViewById(R.id.deptRV);
         semRecyclerView = view.findViewById(R.id.semRV);
+
+        departmentHelper = new DepartmentHelper(getContext());
+        semesterHelper = new SemesterHelper(getContext());
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        userID = firebaseAuth.getCurrentUser().getUid();
+
+        email = firebaseAuth.getCurrentUser().getEmail();
+
 
         selectDept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,9 +141,6 @@ public class FGenralNotificationFragment extends Fragment {
             }
         });
 
-        Log.d("list", selectedDepartment.toString());
-
-
 
         selectSem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,10 +155,32 @@ public class FGenralNotificationFragment extends Fragment {
             }
         });
 
+
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String msgTitle = messageTitle.getText().toString().trim();
+                String msgDescription = messageDescription.getText().toString().trim();
+
+                sendMessage(msgTitle,msgDescription);
+//
+//                departmentHelper.fnDeleteAll();
+//                semesterHelper.fnDeleteAll();
+
+                deptRecyclerView.setVisibility(View.GONE);
+                semRecyclerView.setVisibility(View.GONE);
+
+                messageTitle.getText().clear();
+                messageDescription.getText().clear();
+
+            }
+        });
+
         return view;
     }
 
-     private void showDepartmentDialog(){
+    private void showDepartmentDialog(){
 
         try{
             final Dialog dialog = new Dialog(getContext());
@@ -126,20 +199,24 @@ public class FGenralNotificationFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
 
+                    departmentHelper.fnDeleteAll();
+
                     addDeptData(computerDept);
                     addDeptData(itDept);
                     addDeptData(civilDept);
                     addDeptData(mechanicalDept);
 
+                    ArrayList<DepartmentDomain> list = departmentHelper.fnGetItems();
 
-                    if(selectedDepartment.isEmpty()){
+                    if(list.isEmpty()){
                         deptRecyclerView.setVisibility(View.GONE);
                     }
                     else {
                         deptRecyclerView.setVisibility(View.VISIBLE);
                     }
 
-                    SelectedDetailsAdapter adapter = new SelectedDetailsAdapter(selectedDepartment, getContext(),1);
+
+                    SelectedDetailsAdapter adapter = new SelectedDetailsAdapter(getContext(),list,1);
                     deptRecyclerView.setAdapter(adapter);
 
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -162,19 +239,19 @@ public class FGenralNotificationFragment extends Fragment {
 
     }
 
-     private void addDeptData(CheckBox name){
+    private void addDeptData(@NonNull CheckBox name){
 
         if(name.isChecked()){
 
-            if(!selectedDepartment.contains(name.getText().toString())){
-                selectedDepartment.add(name.getText().toString());
+            if(!departmentHelper.fnCheckItemsExist(name.getText().toString())){
+                departmentHelper.fnInsertItems(name.getText().toString().trim());
             }
         }
-        else {
-            if(selectedDepartment.contains(name.getText().toString())){
-                selectedDepartment.remove(name.getText().toString());
-            }
-        }
+//        else {
+//            if(departmentHelper.fnCheckItemsExist(name.getText().toString())){
+//                departmentHelper.fnRemoveItem(name.getText().toString());
+//            }
+//        }
     }
 
     private void showSemesterDialog(){
@@ -200,6 +277,8 @@ public class FGenralNotificationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                semesterHelper.fnDeleteAll();
+
                 addSemData(sem1);
                 addSemData(sem2);
                 addSemData(sem3);
@@ -210,14 +289,16 @@ public class FGenralNotificationFragment extends Fragment {
                 addSemData(sem8);
 
 
-                if(selectedSemester.isEmpty()){
+                ArrayList<SemesterDomain> list = semesterHelper.fnGetItems();
+
+                if(list.isEmpty()){
                     semRecyclerView.setVisibility(View.GONE);
                 }
                 else {
                     semRecyclerView.setVisibility(View.VISIBLE);
                 }
 
-                SelectedDetailsAdapter adapter = new SelectedDetailsAdapter(selectedSemester, getContext(),1);
+                SelectedDetailsAdapter adapter = new SelectedDetailsAdapter(list, getContext(),2);
                 semRecyclerView.setAdapter(adapter);
 
 
@@ -236,19 +317,64 @@ public class FGenralNotificationFragment extends Fragment {
 
     }
 
-    private void addSemData(CheckBox name){
+    private void addSemData(@NonNull CheckBox name) {
 
-        if(name.isChecked()){
+        if (name.isChecked()) {
 
-            if(!selectedSemester.contains(name.getText().toString())){
-                selectedSemester.add(name.getText().toString());
+            if (!semesterHelper.fnCheckItemsExist(name.getText().toString())) {
+                semesterHelper.fnInsertItems(name.getText().toString());
             }
         }
-        else {
-            if(selectedSemester.contains(name.getText().toString())){
-                selectedSemester.remove(name.getText().toString());
-            }
-        }
+//        else {
+//            if(semesterHelper.fnCheckItemsExist(name.getText().toString())){
+//                semesterHelper.fnRemoveItem(name.getText().toString());
+//            }
+//        }
     }
 
+
+    private void sendMessage(String msgTitle,String msgDescription){
+
+        selectedDepartment = departmentHelper.fnGetItems();
+        selectedSemester = semesterHelper.fnGetItems();
+
+
+        for(int j=0; j<selectedDepartment.size(); j++){
+
+            for(int k=0; k<selectedSemester.size();k++){
+
+                DepartmentDomain departmentDomain = selectedDepartment.get(j);
+                SemesterDomain semesterDomain = selectedSemester.get(k);
+                DocumentReference documentReference2 = firebaseFirestore.collection("GeneralNotification").document(departmentDomain.getItem());
+
+
+                Map<String,Object> message = new HashMap<>();
+                message.put("Email",email);
+                message.put("Dept",departmentDomain.getItem());
+                message.put("Semester",semesterDomain.getItem());
+                message.put("title",msgTitle);
+                message.put("Message",msgDescription);
+
+
+                String id = UUID.randomUUID().toString();
+
+                documentReference2.collection(semesterDomain.getItem()).document(id)
+                        .set(message).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        Toast.makeText(getContext(), "Message Sent Successfully", Toast.LENGTH_SHORT).show();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG","onFail: " + e.toString());
+                        Toast.makeText(getContext(), "Error: Message not sent", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+        }
+    }
 }

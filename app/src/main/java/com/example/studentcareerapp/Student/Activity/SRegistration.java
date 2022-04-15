@@ -31,7 +31,7 @@ import java.util.Map;
 public class SRegistration extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     Button register;
-    TextInputEditText name,email,dept,div,id,phone,password,confPass;
+    TextInputEditText name,email,id,phone,password,confPass;
 
     String emailPattern = "[a-zA-Z0-9._-]+@[charusat]+\\.+[edu]+\\.+[in]+";
     String phonePattern = "^[+]?[0-9]{10}$";
@@ -55,20 +55,30 @@ public class SRegistration extends AppCompatActivity implements AdapterView.OnIt
 
         name = findViewById(R.id.textInputEditName);
         email = findViewById(R.id.textInputEditEmail);
-        dept = findViewById(R.id.textInputEditDepartment);
-        div = findViewById(R.id.textInputEditDvision);
         id = findViewById(R.id.textInputEditIdNo);
         phone = findViewById(R.id.textInputEditContactNo);
         password = findViewById(R.id.textInputEditPassword);
         confPass = findViewById(R.id.textInputEditConformPassword);
         register = findViewById(R.id.register);
 
-        Spinner spinner = findViewById(R.id.semester);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.SelectSemester, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(this);
+        Spinner deptSpinner = findViewById(R.id.department);
+        ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(this, R.array.SelectDepartment, android.R.layout.simple_spinner_item);
+        deptAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        deptSpinner.setAdapter(deptAdapter);
+        deptSpinner.setOnItemSelectedListener(this);
+
+        Spinner semSpinner = findViewById(R.id.semester);
+        ArrayAdapter<CharSequence> semAdapter = ArrayAdapter.createFromResource(this, R.array.SelectSemester, android.R.layout.simple_spinner_item);
+        semAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        semSpinner.setAdapter(semAdapter);
+        semSpinner.setOnItemSelectedListener(this);
+
+        Spinner divSpinner = findViewById(R.id.division);
+        ArrayAdapter<CharSequence> divAdapter = ArrayAdapter.createFromResource(this, R.array.SelectDivision, android.R.layout.simple_spinner_item);
+        divAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        divSpinner.setAdapter(divAdapter);
+        divSpinner.setOnItemSelectedListener(this);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -81,7 +91,7 @@ public class SRegistration extends AppCompatActivity implements AdapterView.OnIt
 
 
         register.setOnClickListener(view -> {
-            StartRegistration(spinner,role);
+            StartRegistration(deptSpinner,semSpinner,divSpinner,role);
         });
     }
 
@@ -101,13 +111,13 @@ public class SRegistration extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
-    private void StartRegistration(Spinner spinner, String role){
+    private void StartRegistration(Spinner deptSpinner,Spinner semSpinner,Spinner divSpinner, String role){
 
-        String userName = name.getText().toString();
+        String userName = name.getText().toString().trim();
         String userEmail = email.getText().toString().trim();
-        String userDept = dept.getText().toString();
-        String userSem = spinner.getSelectedItem().toString();
-        String userDiv = div.getText().toString();
+        String userDept = deptSpinner.getSelectedItem().toString().trim();
+        String userSem = semSpinner.getSelectedItem().toString().trim();
+        String userDiv = divSpinner.getSelectedItem().toString().trim();
         String userId = id.getText().toString();
         String userPhone = phone.getText().toString();
         String userPassword = password.getText().toString().trim();

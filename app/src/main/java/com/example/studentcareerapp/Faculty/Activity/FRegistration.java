@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.studentcareerapp.R;
@@ -25,10 +28,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FRegistration extends AppCompatActivity {
+public class FRegistration extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     Button Register;
-    TextInputEditText name,email,designation,dept,phone,password,confPass;
+    TextInputEditText name,email,designation,phone,password,confPass;
+
 
     String emailPattern = "[a-zA-Z0-9._-]+@[charusat]+\\.+[ac]+\\.+[in]+";
     String phonePattern = "^[+]?[0-9]{10}$";
@@ -55,10 +59,16 @@ public class FRegistration extends AppCompatActivity {
         name = findViewById(R.id.textInputEditNAME);
         email = findViewById(R.id.textInputEditEMAIL);
         designation = findViewById(R.id.textInputEditDESIGNATION);
-        dept = findViewById(R.id.textInputEditDEPARTMENT);
         phone = findViewById(R.id.textInputEditContactNO);
         password = findViewById(R.id.textInputEditPASSWORD);
         confPass = findViewById(R.id.textInputEditConformPASSWORD);
+
+
+        Spinner deptSpinner = findViewById(R.id.departmentSP);
+        ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(this, R.array.FacultySelectDepartment, android.R.layout.simple_spinner_item);
+        deptAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        deptSpinner.setAdapter(deptAdapter);
+        deptSpinner.setOnItemSelectedListener(this);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -73,7 +83,7 @@ public class FRegistration extends AppCompatActivity {
         Register = findViewById(R.id.registerBTN);
 
         Register.setOnClickListener(view -> {
-            StartRegistration(role);
+            StartRegistration(deptSpinner,role);
         });
     }
 
@@ -82,12 +92,24 @@ public class FRegistration extends AppCompatActivity {
         super.onStart();
     }
 
-    private void StartRegistration(String role){
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String text = adapterView.getItemAtPosition(i).toString();
+        System.out.println(text+"Selected");
+    }
 
-        String userName = name.getText().toString();
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+
+    private void StartRegistration(Spinner deptSpinner,String role){
+
+        String userName = name.getText().toString().trim();
         String userEmail = email.getText().toString().trim();
-        String userDesig = designation.getText().toString();
-        String userDept = dept.getText().toString();
+        String userDesig = designation.getText().toString().trim();
+        String userDept = deptSpinner.getSelectedItem().toString().trim();
         String userPhone = phone.getText().toString();
         String userPassword = password.getText().toString().trim();
         String userConfPassword = confPass.getText().toString().trim();

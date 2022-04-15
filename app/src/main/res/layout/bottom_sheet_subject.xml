@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="18dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginBottom="40dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="Select Subject"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/checkImgButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:src="@drawable/check"
+            android:clickable="true"
+            android:padding="2dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_marginTop="15dp"
+        />
+
+    <CheckBox
+        android:id="@+id/cLangCB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Programming in C"
+        android:layout_marginTop="25dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+    <CheckBox
+        android:id="@+id/physCB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Physics"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+    <CheckBox
+        android:id="@+id/mathsCB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Discrete mathematics"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+
+    <CheckBox
+        android:id="@+id/cppLangCB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C++"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+    <CheckBox
+        android:id="@+id/osCB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Operating System"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+    <CheckBox
+        android:id="@+id/javaLangCB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Java"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+
+</LinearLayout>

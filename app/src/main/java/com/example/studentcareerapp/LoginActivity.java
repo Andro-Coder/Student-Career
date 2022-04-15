@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userEmail = email.getText().toString();
+                String userEmail = email.getText().toString().trim();
                 String userPassword = password.getText().toString();
 
                 if(userEmail.isEmpty() || userPassword.isEmpty()){
