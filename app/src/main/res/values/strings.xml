@@ -1,3 +1,52 @@
 <resources>
     <string name="app_name">StudentCareerApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="student">Student</string>
+    <string name="staff">Staff</string>
+    <string name="logo1">Logo1</string>
+    <string name="enter_a_password">Enter a password</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="my_account">My Account</string>
+    <string name="login1">LOGIN</string>
+    <string name="login2">LOGIN</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account_signup">Don\'t have an account? Signup</string>
+    <string name="my_account_1">My Account</string>
+    <string name="login_12">Login</string>
+    <string name="register">REGISTER</string>
+
+
+
+    <string-array name="SelectDepartment">
+        <item>"Computer (CE)"</item>
+        <item>"IT"</item>
+        <item>"Civil (CL)"</item>
+        <item>"Mechanical (ME)"</item>
+    </string-array>
+
+    <string-array name="SelectSemester">
+        <item>"Semester - 1"</item>
+        <item>"Semester - 2"</item>
+        <item>"Semester - 3"</item>
+        <item>"Semester - 4"</item>
+        <item>"Semester - 5"</item>
+        <item>"Semester - 6"</item>
+        <item>"Semester - 7"</item>
+        <item>"Semester - 8"</item>
+    </string-array>
+
+    <string-array name="SelectDivision">
+        <item>"Division - 1"</item>
+        <item>"Division - 2"</item>
+        <item>"Division - 3"</item>
+    </string-array>
+
+    <string-array name="FacultySelectDepartment">
+        <item>"Computer (CE)"</item>
+        <item>"IT"</item>
+        <item>"Civil (CL)"</item>
+        <item>"Mechanical (ME)"</item>
+    </string-array>
+
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    android:background="@drawable/vieholder_background">
+
+    <TextView
+        android:id="@+id/infoTV"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Text"
+        android:textSize="12sp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/cancelButton"
+        android:layout_width="17dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/cancel"
+        android:scaleType="fitEnd"
+        android:layout_marginStart="10dp"
+        android:clickable="true"/>
+
+</LinearLayout>
