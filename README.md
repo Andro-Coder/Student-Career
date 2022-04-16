@@ -35,7 +35,8 @@ Project is created with:
 ![3](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/faculty_notes.png)
 ![4](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/faculty_feedback.png)
 
-
+&nbsp;
+&nbsp;
 #### Student Module
 
 ![1](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/student_profile.png)
