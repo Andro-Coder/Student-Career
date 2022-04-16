@@ -1,7 +1,7 @@
 # Student-Career-App
 Student Career is a mobile application that will help to improving student interaction with their respective staff.
 
-
+&nbsp;
 ## Technologies
 
 Project is created with:
@@ -10,6 +10,7 @@ Project is created with:
 * Language: XML and Java
 * Database: Firebase
 
+&nbsp;
 ## Features
 
 #### Staff Module
