@@ -1,10 +1,35 @@
 # Student-Career-App
 Student Career is a mobile application that will help to improving student interaction with their respective staff.
 
-# Spider BugTracker | MERN Stack
-Spider Bug Tracker is Web application for tracking the bugs during software development period. It has a clean and user-friendly GUI with great functionality. 
+## Technologies
+
+Project is created with:
+
+* IDE: Android Studio
+* Language: XML and Java
+* Database: Firebase
 
 ## Built using
+
+#### Front-end
+
+- [ReactJS](https://reactjs.org/) - Frontend framework
+- [Redux w/ hooks](https://redux.js.org/) - State management library
+- [Redux Toolkit](https://redux-toolkit.js.org/) - Toolset for efficient Redux development
+- [React Router](https://reactrouter.com/) - Library for general routing & navigation
+- [React Hook Form](https://react-hook-form.com/) - Library for flexible & extensible forms
+- [Material-UI w/ lots of CSS customisations](https://material-ui.com/) - UI library
+- [date-fns](https://date-fns.org/) - Library for manipulating/formatting of timestamps
+
+#### Back-end
+
+- [Node.js](https://nodejs.org/en/) - Runtime environment for JS
+- [Express.js](https://expressjs.com/) - Node.js framework, makes process of building APIs easier & faster
+- [PostgreSQL](https://www.postgresql.org/) - Opens-source SQL database to store data
+- [TypeORM](https://typeorm.io/) - TS-based ORM for mostly SQL-based databases
+- [JSON Web Token](https://jwt.io/) - A standard to secure/authenticate HTTP requests
+- [Bcrypt.js](https://www.npmjs.com/package/bcryptjs) - For hashing passwords
+- [Dotenv](https://www.npmjs.com/package/dotenv) - To load environment variables from a .env file
 
 #### Front-end
 
