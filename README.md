@@ -30,13 +30,20 @@ Project is created with:
 
 #### Staff Module
 
-![Desktop-1](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/Project%20Details.png)
-![Desktop-2](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/Add%20Project.png)
-![Desktop-3](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/Project%20Details.png)
-![Desktop-4](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/open%20bug.png)
-![Desktop-5](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/assign%20bug.png)
-![Desktop-6](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/resolve%20bug.png)
-![Desktop-7](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/Bug%20Details.png)
+![1](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/faculty_profile.png)
+![2](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/faculty_genral_notification.png)
+![3](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/faculty_notes.png)
+![4](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/faculty_feedback.png)
+
+
+#### Student Module
+
+![1](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/student_profile.png)
+![2](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/student_genral_notification.png)
+![3](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/student_notes.png)
+![4](https://github.com/Andro-Coder/StudentCareerApp/blob/main/app/src/main/res/drawable/student_feedback.png)
+
+
 
 
 
