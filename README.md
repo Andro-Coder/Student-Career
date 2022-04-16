@@ -18,7 +18,6 @@ Project is created with:
 * Send Notification to specific Department's specific semester's students
 * Send class notes of particular subject to specific Department's specific semester's tudents and view uploaded notes
 * See feedback sent by students
-*
 
 #### Student Module
 
@@ -26,10 +25,10 @@ Project is created with:
 * See if class notes is sent by staff of particular subject
 * Give the staff feedback
 
-
+&nbsp;
 ## Screenshots
 
-#### Desktop
+#### Staff Module
 
 ![Desktop-1](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/Project%20Details.png)
 ![Desktop-2](https://github.com/clever-developer-club/spider-bug-tracker/blob/main/client/src/Assets/Screenshots/Add%20Project.png)
